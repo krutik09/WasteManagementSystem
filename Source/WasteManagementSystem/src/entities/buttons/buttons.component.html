@@ -1,0 +1,9 @@
+@if (type == 'submit') {
+    <button [type]="type" [className]="class" [disabled]="disabled">{{name}}</button>
+}
+@else if (isRouting) {
+    <button [type]="type" [className]="class" [routerLink]="routerLink" [disabled]="disabled">{{name}}</button>
+}
+@else {
+    <button [type]="type" [className]="class" (click)="onClick" [disabled]="disabled">{{name}}</button>
+}

@@ -1,0 +1,16 @@
+<h1>{{heading}}</h1>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmitForm(formGroup)">
+    @for (item of formFields; track $index) {
+        @if (item.type == 'checkbox') {
+            <input class="form-check-input" type="{{item.type}}" formControlName = "{{item.name}}" id="{{item.name}}">
+            <label class="form-check-label" for="{{item.name}}">Check me out</label>
+        }
+        @else{
+        <label for="{{item.name}}" class="form-label">Password</label>
+        <input class="form-control" type="{{item.type}}" formControlName = "{{item.name}}" placeholder="{{item.placeholder}}" id="{{item.name}}">
+        }
+    }
+    <div>
+    <app-buttons type="submit" class="btn btn-primary" name="submit"></app-buttons>
+</div>
+</form>
