@@ -3,11 +3,20 @@
     @for (item of formFields; track $index) {
         @if (item.type == 'checkbox') {
             <input class="form-check-input" type="{{item.type}}" formControlName = "{{item.name}}" id="{{item.name}}">
-            <label class="form-check-label" for="{{item.name}}">Check me out</label>
+            <label class="form-check-label" for="{{item.name}}">{{item.displayName}}</label>
+        }
+        @else if (item.type == 'select') {
+            <label for="{{ item.name }}" class="form-label">{{item.displayName}}</label>
+            <select class="form-select" formControlName="{{ item.name }}" id="{{ item.name }}">
+                <option *ngFor="let option of item.options" [value]="option.value">{{ option.label }}</option>
+            </select>
         }
         @else{
-        <label for="{{item.name}}" class="form-label">Password</label>
+        <label for="{{item.name}}" class="form-label">{{item.displayName}}</label>
         <input class="form-control" type="{{item.type}}" formControlName = "{{item.name}}" placeholder="{{item.placeholder}}" id="{{item.name}}">
+        <div>
+        <small *ngIf="ShowValidationErrors && formGroup.controls[item.name].invalid">{{ item.name }} is required.</small>
+        </div>
         }
     }
     <div>
