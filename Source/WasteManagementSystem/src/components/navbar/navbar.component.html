@@ -1,20 +1,29 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <a class="navbar-brand" href="#">{{this.authService.getUserName()==""?"krutik":this.authService.getUserName()}}</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          
-            @for (item of NavbarMenuList; track $index) {
-              <li class="nav-item">
-            <app-buttons class="nav-link" routerLink="{{item.routerLink}}" name="{{item.name}}" [isRouting]="true"></app-buttons>
-            </li>
-            }
-         
-          </ul>
-      </div>
+<nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        @for (item of NavbarMenuList(); track $index) {
+        <li class="nav-item">
+          <app-buttons class="nav-link" routerLink="{{item.routerLink}}" name="{{item.name}}"
+            [isRouting]="true"></app-buttons>
+        </li>
+        }
+        @if(this.authService.getUserLoggedInStatus()){
+          <li class="nav-item">
+            <app-buttons class="nav-link" [isRouting]="false" [onClick]="onLogout" name="Logout"></app-buttons>
+          </li>
+        }
+      </ul>
     </div>
-  </nav>
+    <div class="d-flex align-items-center ms-auto">
+      <a class="navbar-brand me-2">
+        {{ this.authService.getUserName() === "" ? "Anonymous" : this.authService.getUserName() }}
+      </a>
+    </div>
+  </div>
+</nav>

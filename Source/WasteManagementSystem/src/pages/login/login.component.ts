@@ -5,6 +5,8 @@ import { FormsComponent } from "../../components/forms/forms.component";
 import { UserLogin } from './models/UserLogin';
 import { FormValidationErrors } from '../../components/forms/models/formValidationErrors';
 import { LoginService } from './services/login.service';
+import { RouterService } from '../../shared/services/router/router.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,8 @@ import { LoginService } from './services/login.service';
 })
 export class LoginComponent {
   private readonly loginService = inject(LoginService)
+  private readonly routerService = inject(RouterService)
+  private readonly authService = inject(AuthService)
  loginForm = new FormGroup({
     username: new FormControl("",Validators.required),
     password: new FormControl("",Validators.required),
@@ -34,8 +38,17 @@ export class LoginComponent {
   },
 ]
   OnSuccess = (formGroup:FormGroup) => {
+      debugger
       const model: UserLogin = { ...formGroup.value };
-      this.loginService.Login(model.username)
+      let result = this.loginService.Login(model.username)
+      if (result){
+        alert("success")
+        let loggedInUserRole = this.authService.getUserRole()
+        this.routerService.routeToDashboard(loggedInUserRole!)
+      }
+      else{
+        alert("Cannot find logged in user. Please register")
+      }
   }
   onFailed = (formGroup:FormGroup,errors:FormValidationErrors[]) => {
       console.log(errors)

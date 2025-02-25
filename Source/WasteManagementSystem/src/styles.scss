@@ -3,3 +3,14 @@ app-forms div small {
     color: red;
   }
   
+.dark-theme {
+    background-color: rgb(32, 32, 32) !important;
+    color: white !important;
+}
+body {
+    @extend .dark-theme;
+  }
+.heading{
+  margin: 1%;
+  text-align: center;
+}

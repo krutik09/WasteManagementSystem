@@ -1,6 +1,6 @@
 import { UserType } from "./UserType"
 
-export interface UserModel {
+export interface User {
     Id:number
     username:string
     email:string

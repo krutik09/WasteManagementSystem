@@ -1,5 +1,4 @@
 import {inject, Injectable, signal,} from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { StorageService } from '../storage/storage.service';
 import * as CryptoJS from 'crypto-js';
 
@@ -11,23 +10,19 @@ export class JWTService {
   private readonly storageService = inject(StorageService)
   secretKey = 'very..very..secret..key';
   token = signal<string>('')
-  SetJWTToken(payload:any){
+  setJWTToken(payload:any){
     let tokenString = this.signToken(payload,this.secretKey)
     this.token.set(tokenString)
     this.storageService.SetToken(tokenString)
   }
-  GetJWToken(): string {
+  getJWToken(): string {
     if(this.token()!=''){
       return this.token()
     }
     this.token.set(this.storageService.GetToken())
     return this.token()
   }
-  decodeToken() {
-    const tokenHelper = new JwtHelperService()
-    const token = this.GetJWToken()
-    return tokenHelper.decodeToken(token)
-  }
+ 
 
 
   ///////////-------------------------------

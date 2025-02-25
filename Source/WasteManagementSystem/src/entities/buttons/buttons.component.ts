@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 })
 export class ButtonsComponent{
   @Input()
-  onClick: (() => any) | undefined;
+  onClick!: (() => any);
   @Input()
   isRouting:  boolean | undefined = false;
   @Input()
