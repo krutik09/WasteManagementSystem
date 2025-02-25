@@ -8,6 +8,7 @@ import { DriverDashboardComponent } from '../pages/dashboard/driver/driver-dashb
 
 export const routes: Routes = [
     {path :'home',component:HomeComponent},
+    {path :'',component:HomeComponent},
     {path:'signup',component:SignupComponent},
     {path:'login',component:LoginComponent},
     {path:'dashboard/admin',component:AdminDashboardComponent},

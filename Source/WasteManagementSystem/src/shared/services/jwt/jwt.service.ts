@@ -1,4 +1,4 @@
-import {inject, Injectable, signal,} from '@angular/core';
+import {inject, Injectable, signal, WritableSignal,} from '@angular/core';
 import { StorageService } from '../storage/storage.service';
 import * as CryptoJS from 'crypto-js';
 
@@ -15,15 +15,15 @@ export class JWTService {
     this.token.set(tokenString)
     this.storageService.SetToken(tokenString)
   }
-  getJWToken(): string {
-    if(this.token()!=''){
-      return this.token()
+  getJWToken(): WritableSignal<string> {
+    if (this.token() === '') {
+      return signal(this.storageService.GetToken());
     }
-    this.token.set(this.storageService.GetToken())
-    return this.token()
+    return this.token;
   }
- 
-
+  setTokenToDefault(){
+    this.token.set('')
+  }
 
   ///////////-------------------------------
   base64url(source: any): string {

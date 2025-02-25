@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">WMS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,7 @@
             [isRouting]="true"></app-buttons>
         </li>
         }
-        @if(this.authService.getUserLoggedInStatus()){
+        @if(this.authService.getUserLoggedInStatus()()){
           <li class="nav-item">
             <app-buttons class="nav-link" [isRouting]="false" [onClick]="onLogout" name="Logout"></app-buttons>
           </li>
@@ -22,7 +22,7 @@
     </div>
     <div class="d-flex align-items-center ms-auto">
       <a class="navbar-brand me-2">
-        {{ this.authService.getUserName() === "" ? "Anonymous" : this.authService.getUserName() }}
+        {{this.authService.getUserName()()==""?"anonymous":this.authService.getUserName()()}}
       </a>
     </div>
   </div>

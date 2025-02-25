@@ -1,5 +1,6 @@
 import {inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserType } from '../../models/UserType';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class RouterService {
   routeToLogin(){
     this.router.navigate(['/login'])
   }
-  routeToDashboard(role:string){
+  routeToDashboard(role:UserType){
     this.router.navigate(['/dashboard/'+ role])
   }
 }

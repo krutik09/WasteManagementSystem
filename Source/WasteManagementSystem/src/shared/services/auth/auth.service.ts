@@ -1,61 +1,64 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { computed, inject, Injectable, Signal} from '@angular/core';
 import { JWTService } from '../jwt/jwt.service';
 import { User } from '../../models/User';
-import { UserType } from '../../models/UserType';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserType } from '../../models/UserType';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly router = inject(Router)
   private readonly jwtService = inject(JWTService)
-  private readonly userId = signal<number>(0)
-  private readonly userName = signal<string|null>(null)
-  private readonly userRole = signal<UserType|null>(null)
-  public readonly isUserLoggedIn = signal<boolean>(false)
-  constructor() {
-    effect(() => {
-      let token = this.jwtService.token()
-      let payload: User = this.decodeToken(token)
-      if (payload != null) {
-        this.onTokenChangesOrRefresh(payload)
-      }
-      else {
-        this.logOut()
-      }
-    })
+  private readonly userId = computed(()=>{
+    let token = this.jwtService.getJWToken()
+    if(token()==''||token()==null){
+      return 0
+    }
+    else{
+      let payload: User = this.decodeToken(token())
+      return payload.Id
+    }
+  })
+  private readonly userName = computed(()=>{
+    let token = this.jwtService.getJWToken()
+    if(token()==''||token()==null){
+      return "Anonymous"
+    }
+    else{
+      let payload: User = this.decodeToken(token())
+      return payload.username
+    }
+  })
+  private readonly userRole = computed(()=>{
+    let token = this.jwtService.getJWToken()
+    if(token()==''||token()==null){
+      return null
+    }
+    else{
+      let payload: User = this.decodeToken(token())
+      return payload.userRole
+    }
+  }) 
+  public readonly isUserLoggedIn = computed(()=>{
+    let token = this.jwtService.getJWToken()
+    if(token()==''||token()==null){
+      return false
+    }
+    else{
+      return true
+    }
+  })
+  getUserLoggedInStatus(): Signal<boolean>{
+    return this.isUserLoggedIn
   }
-  private onTokenChangesOrRefresh(payload:User){
-    this.setUerId(payload.Id)
-    this.setUserName(payload.username)
-    this.setUserRole(payload.userRole)
-    this.setUserLoggedIn(true)
+  getUserId(): Signal<number> {
+    return this.userId
   }
-  setUerId(Id:number){
-    this.userId.set(Id)
+  getUserName(): Signal<string|null> {
+    return this.userName
   }
-  setUserName(name:string){
-    this.userName.set(name)
-  }
-  setUserRole(userType:UserType|null){
-    this.userRole.set(userType)
-  }
-  setUserLoggedIn(b:boolean){
-    this.isUserLoggedIn.set(b)
-  }
-  getUserLoggedInStatus(): boolean{
-    return this.isUserLoggedIn()
-  }
-  getUserId(): number {
-    return this.userId()
-  }
-  getUserName(): string|null {
-    return this.userName()
-  }
-  getUserRole(): string|null {
-    return this.userRole()
+  getUserRole(): Signal<UserType|null> {
+    return this.userRole
   }
   isTokenExpired(token: string): void {
     const expiry = (JSON.parse(window.atob(token.split('.')[1]))).exp;
@@ -70,10 +73,6 @@ export class AuthService {
   }
   logOut() {
     localStorage.clear();
-    this.setUerId(0);
-    this.setUserName('');
-    this.setUserRole(null);
-    this.setUserLoggedIn(false);
-    this.router.navigate(['/login'])
+    this.jwtService.setTokenToDefault()
   }
 }
