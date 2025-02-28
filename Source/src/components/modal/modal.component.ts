@@ -29,6 +29,10 @@ export class ModalComponent {
     this.OnClose = this.modalService.getOnClose()
     this.OnConfirm = this.modalService.getOnConfirm()
   }
+  ConfirmModal = () =>{
+    this.modalService.Hide()
+    this.OnConfirm()
+  }
   CloseModal = ()=>{
     this.modalService.Hide()
     this.OnClose()

@@ -1,11 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ProfileFormFields } from './models/ProfileFormFields';
 import { UserType } from '../login/models/UserLogin';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth/auth.service';
 import { FormsComponent } from "../../components/forms/forms.component";
 import { FormValidationErrors } from '../../components/forms/models/formValidationErrors';
 import { ButtonsComponent } from "../../entities/buttons/buttons.component";
+import { passwordMatchValidator } from '../../shared/validator/Validator';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -15,11 +16,7 @@ import { ButtonsComponent } from "../../entities/buttons/buttons.component";
 
 export class ProfileComponent {
   private readonly authService = inject(AuthService)
-  passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirm_password')?.value;
-    return password === confirmPassword ? null : { passwordMismatch: true };
-  };
+  
   isEditing = signal<boolean>(false)
   isSubmitBtnDisbaled = computed(()=>{
     return !this.isEditing()
@@ -32,7 +29,7 @@ export class ProfileComponent {
     userType: new FormControl<UserType>({ value: UserType.Customer, disabled: true }, Validators.required)
   },
     {
-      validators: this.passwordMatchValidator
+      validators: passwordMatchValidator
     }))
   FormFields: ProfileFormFields[] = [
     {
@@ -95,7 +92,7 @@ export class ProfileComponent {
       userType: new FormControl<UserType>(UserType.Customer, Validators.required)
     },
       {
-        validators: this.passwordMatchValidator
+        validators: passwordMatchValidator
       }))
       this.setLoggedInUserValuesToForm()
   }

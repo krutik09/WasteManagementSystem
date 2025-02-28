@@ -6,6 +6,7 @@ import { AdminDashboardComponent } from '../pages/dashboard/admin/admin-dashboar
 import { CusomterDashboardComponent } from '../pages/dashboard/customer/cusomter-dashboard/cusomter-dashboard.component';
 import { DriverDashboardComponent } from '../pages/dashboard/driver/driver-dashboard/driver-dashboard.component';
 import { ProfileComponent } from '../pages/profile/profile.component';
+import { ManageUserComponent } from '../pages/admin/manage-user/manage-user.component';
 
 export const routes: Routes = [
     {path :'home',component:HomeComponent},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path:'dashboard/customer',component:CusomterDashboardComponent},
     {path:'dashboard/driver',component:DriverDashboardComponent},
     {path:'logout',component:HomeComponent},
-    {path:'profile',component:ProfileComponent}
+    {path:'profile',component:ProfileComponent},
+    {path:'admin/manageusers',component:ManageUserComponent}
 ];

@@ -17,11 +17,13 @@ export class AppComponent {
   private readonly routerService = inject(RouterService)
   private readonly renderer = inject(Renderer2)
   isDarkMode = false;
+  currentTheme: string = 'dark-theme'; // Default theme
   constructor() {
     if(this.authService.isUserLoggedIn()){
      // let role = this.authService.getUserRole()()
      // this.routerService.routeToDashboard(role!)
-     this.routerService.routeToProile()
+    // this.routerService.routeToProile()
+    this.routerService.routeToManageUser()
     }
     else{
       this.routerService.routeToHome()

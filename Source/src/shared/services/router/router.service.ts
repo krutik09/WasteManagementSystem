@@ -7,6 +7,9 @@ import { UserType } from '../../models/UserType';
 })
 export class RouterService {
   private readonly router = inject(Router)
+  routeToManageUser(){
+    this.router.navigate(['/admin/manageusers'])
+  }
   routeToHome(){
     this.router.navigate(['/home'])
   }

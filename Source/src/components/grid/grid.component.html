@@ -12,9 +12,17 @@
         <tr>
             <th scope="row">{{$index+1}}</th>
             @for (column of grid.Columns; track $index) {
-                <td>{{row[column]}}</td>
+            <td>{{row[column]}}</td>
+            }
+            @if (grid.actionsBtns!=undefined&&grid.actionsBtns.length>0) {
+            <td>
+                @for (item of grid.actionsBtns; track $index) {
+                <button [name]="item.name" [class]="item.className" (click)="item.onClick(row)">{{item.name}}</button>
+                }
+            </td>
             }
         </tr>
+
         }
     </tbody>
 </table>

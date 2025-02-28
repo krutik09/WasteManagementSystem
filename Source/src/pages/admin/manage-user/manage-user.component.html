@@ -1,0 +1,15 @@
+<div class="parent">
+    <h1 class="heading">Users In the System</h1>
+    <app-grid [data]="ManageUserGridData()" [grid]="ManageUserGridColumnValues">
+    </app-grid>
+    @if (this.isEditing()) {
+    <app-overlay>
+        <div class="content">
+            <app-forms [formGroup]="EditUserForm()" [onValidationSuccess]="onUserEditSuccess"
+                [onValidationFailed]="onUserEditFailed" heading="Edit user" [formFields]="FormFields">
+            </app-forms>
+            <app-buttons class="btn btn-secondary" name="close" [onClick]="closeEditing"></app-buttons>
+        </div>
+    </app-overlay>
+    }
+</div>

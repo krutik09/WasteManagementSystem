@@ -1,0 +1,6 @@
+$background-colour:white;
+$text-colour:black;
+.light-theme{
+    --background-color: $background-colour!important;
+    --text-color: $text-colour!important;
+}
