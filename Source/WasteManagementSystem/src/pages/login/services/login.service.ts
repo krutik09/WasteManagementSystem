@@ -13,7 +13,7 @@ export class LoginService {
   Login(Username: string) :boolean {
     let loggedInUser = this.ExistingUserData.find(x => x.username == Username)
     if (loggedInUser != null) {
-      this.jwtService.setJWTToken(loggedInUser)
+      this.jwtService.setJwtTokenFromPayload(loggedInUser)
       return true
     }
     else{

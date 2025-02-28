@@ -13,13 +13,13 @@
         }
         @else{
         <label for="{{item.name}}" class="form-label">{{item.displayName}}</label>
-        <input class="form-control" type="{{item.type}}" formControlName = "{{item.name}}" placeholder="{{item.placeholder}}" id="{{item.name}}">
+        <input class="form-control" type="{{item.type}}" formControlName = "{{item.name}}" placeholder="{{item.placeholder}}" id="{{item.name}}"  >
         <div>
         <small *ngIf="ShowValidationErrors && formGroup.controls[item.name].invalid">{{ item.name }} is required.</small>
         </div>
         }
     }
     <div>
-    <app-buttons type="submit" class="btn btn-primary" name="submit"></app-buttons>
+    <app-buttons type="submit" class="btn btn-primary" name="submit" [disabled]="DisableSubmitBtn"></app-buttons>
 </div>
 </form>

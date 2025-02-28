@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { NavbarMenu } from '../../models/NavbarMenus';
 import { AuthService } from '../../../../shared/services/auth/auth.service';
 import { UserType } from '../../../../shared/models/UserType';
@@ -8,39 +8,10 @@ import { NavbarMenusDataList } from '../../models/NavbarMenusDataList';
   providedIn: 'root'
 })
 
-// TODO: remove usage of multitple list use 
 export class NavbarMenuService {
   private readonly authService = inject(AuthService)
   private readonly NavbarMenuDataList = NavbarMenusDataList
-  CommonNavbarMenusForRoles: NavbarMenu[] = [
-    { name: 'Profile', routerLink: '/profile' },
-  ]
-  DefaultNavbarMenus: NavbarMenu[] = [
-    { name: 'Home', routerLink: '/home' },
-    { name: 'Signup', routerLink: '/signup' },
-    { name: 'login', routerLink: '/login' },
-  ];
-
-  NavbarMenusForAdminRole: NavbarMenu[] = [
-    { name: 'Dashboard', routerLink: '/dashboard/admin' },
-    { name: 'ManageUser', routerLink: '/admin/ManageUsers' },
-    { name: 'ManageOrders', routerLink: '/admin/ManageOrders' },
-    { name: 'AssignOrders', routerLink: '/admin/assignOrders' },
-    ...this.CommonNavbarMenusForRoles
-  ]
-
-  NavbarMenusForCustomerRole: NavbarMenu[] = [
-    { name: 'Dashboard', routerLink: '/dashboard/customer' },
-    { name: 'Create Order', routerLink: '/customer/order' },
-    { name: 'ManageOrders', routerLink: '/customer/ManageOrders' },
-    ...this.CommonNavbarMenusForRoles
-  ]
-
-  NavbarMenusForDriverRole: NavbarMenu[] = [
-    { name: 'Dashboard', routerLink: '/dashboard/driver' },
-    { name: 'ManageOrders', routerLink: '/driver/ManageOrders' },
-    ...this.CommonNavbarMenusForRoles
-  ]
+  showProfile = signal<boolean>(false)
   public GetMenusFromRole() {
     let userRole = this.authService.getUserRole()()
     if (userRole == UserType.Admin) {
@@ -53,19 +24,40 @@ export class NavbarMenuService {
       return this.getDriverMenu()
     }
     else{
-      return this.getDefaultMenu();
+      return this.getDefaultMenu()
     }
   }
+
   private getDefaultMenu(): NavbarMenu[]{
-    return this.DefaultNavbarMenus;
+    let result:NavbarMenu[] = []
+    this.NavbarMenuDataList.filter((element)=>element.accessibility==null).forEach((element)=>{
+      let toNavbarMenu:NavbarMenu = {...element}
+      result.push(toNavbarMenu)
+    })
+    return result
   }
   private getAdminMenu(): NavbarMenu[] {
-    return this.NavbarMenusForAdminRole
+    let result:NavbarMenu[] = []
+    this.NavbarMenuDataList.filter((element)=>element.accessibility!=null&&element.accessibility?.findIndex(x=>x==UserType.Admin)!=-1).forEach((element)=>{
+      let toNavbarMenu:NavbarMenu = {...element}
+      result.push(toNavbarMenu)
+    })
+    return result
   }
   private getCustomerMenu(): NavbarMenu[] {
-    return this.NavbarMenusForCustomerRole
+    let result:NavbarMenu[] = []
+    this.NavbarMenuDataList.filter((element)=>element.accessibility!=null&&element.accessibility?.findIndex(x=>x==UserType.Customer)!=-1).forEach((element)=>{
+      let toNavbarMenu:NavbarMenu = {...element}
+      result.push(toNavbarMenu)
+    })
+    return result
   }
   private getDriverMenu(): NavbarMenu[] {
-    return this.NavbarMenusForDriverRole
+    let result:NavbarMenu[] = []
+    this.NavbarMenuDataList.filter((element)=>element.accessibility!=null&&element.accessibility?.findIndex(x=>x==UserType.Driver)!=-1).forEach((element)=>{
+      let toNavbarMenu:NavbarMenu = {...element}
+      result.push(toNavbarMenu)
+    })
+    return result
   }
 }

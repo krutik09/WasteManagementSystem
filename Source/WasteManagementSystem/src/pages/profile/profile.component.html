@@ -1,0 +1,8 @@
+<div class="card-dark">
+  <img src="profile.jpg" class="card-img-top" alt="profile">
+  <div class="card-body">
+    <app-forms [formGroup]="ProfileForm()" [DisableSubmitBtn]="isSubmitBtnDisbaled()" [onValidationSuccess]="onSuccess" [onValidationFailed]="onFailed" heading="Profile form" [formFields]="FormFields">
+    </app-forms>
+    <app-buttons class="btn btn-primary" name="edit" [onClick]="onEditing"></app-buttons>
+  </div>
+</div>

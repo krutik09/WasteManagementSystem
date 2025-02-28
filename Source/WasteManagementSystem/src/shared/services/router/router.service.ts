@@ -16,4 +16,7 @@ export class RouterService {
   routeToDashboard(role:UserType){
     this.router.navigate(['/dashboard/'+ role])
   }
+  routeToProile(){
+    this.router.navigate(['/profile'])
+  }
 }

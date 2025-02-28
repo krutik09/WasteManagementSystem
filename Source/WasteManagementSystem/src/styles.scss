@@ -1,16 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
-app-forms div small {
-    color: red;
-  }
-  
+// Define reusable variables
+$primary-color: red;
+$background-dark: rgb(32, 32, 32);
+$text-light: white;
+
 .dark-theme {
-    background-color: rgb(32, 32, 32) !important;
-    color: white !important;
+  background-color: $background-dark !important;
+  color: $text-light !important;
 }
+
 body {
-    @extend .dark-theme;
+  @extend .dark-theme;
+}
+
+app-forms {
+  div {
+    small {
+      color: $primary-color;
+    }
   }
-.heading{
+}
+
+.heading {
   margin: 1%;
   text-align: center;
+}
+
+app-modal {
+  .modal-content {
+    @extend .dark-theme;
+  }
+
+  .modal-header,
+  .modal-footer {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
 }

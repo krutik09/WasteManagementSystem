@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { LoaderService } from './services/loader/loader.service';
 
 @Component({
   selector: 'app-loader',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './loader.component.scss'
 })
 export class LoaderComponent {
-  
+  loaderService = inject(LoaderService)
 }

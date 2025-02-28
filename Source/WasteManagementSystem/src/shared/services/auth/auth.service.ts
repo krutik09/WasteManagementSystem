@@ -9,6 +9,16 @@ import { UserType } from '../../models/UserType';
 })
 export class AuthService {
   private readonly jwtService = inject(JWTService)
+  private readonly userPayload = computed(()=>{
+    let token = this.jwtService.getJWToken()
+    if(token()==''||token()==null){
+      return null
+    }
+    else{
+      let payload: User = this.decodeToken(token())
+      return payload
+    }
+  })
   private readonly userId = computed(()=>{
     let token = this.jwtService.getJWToken()
     if(token()==''||token()==null){
@@ -48,6 +58,9 @@ export class AuthService {
       return true
     }
   })
+  getUserPayload(): Signal<User | null>{
+    return this.userPayload
+  }
   getUserLoggedInStatus(): Signal<boolean>{
     return this.isUserLoggedIn
   }

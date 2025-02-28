@@ -14,7 +14,8 @@ import { FormValidationErrors } from './models/formValidationErrors';
 export class FormsComponent implements OnInit{
   @Input()
   formGroup!: FormGroup;
-
+  @Input()
+  DisableSubmitBtn:boolean = false;
   @Input()
   onValidationSuccess!:((formGroup:FormGroup) => any);
 

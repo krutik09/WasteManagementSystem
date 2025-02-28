@@ -48,7 +48,8 @@ export class SignupComponent {
       name: "userType",
       type: 'select',
       placeholder: 'Select type',
-      enumType: UserType
+      enumType: UserType,
+      
     }
   ]
   OnSuccess = (formGroup: FormGroup) => {
