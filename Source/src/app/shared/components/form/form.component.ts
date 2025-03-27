@@ -32,6 +32,7 @@ export class FormComponent {
     this.formFields.forEach(field => {
       if (field.type === 'select' && field.enumType) {
         field.options = Object.keys(field.enumType)
+        .filter(key => isNaN(Number(key)))
           .map(key => ({ label: key, value: field.enumType[key] }));
       }
     });

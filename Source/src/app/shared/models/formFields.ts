@@ -2,7 +2,7 @@ export interface FormField{
     displayName:string
     name:string
     type: string
-    placeholder:string
+    placeholder?:string
     options?:SelectField[]
     enumType?:any
 }

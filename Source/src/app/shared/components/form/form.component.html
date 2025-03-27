@@ -8,7 +8,10 @@
         @else if (field.type == 'select') {
             <label for="{{ field.name }}" class="form-label">{{field.displayName}}</label>
             <select class="form-select" formControlName="{{ field.name }}" id="{{ field.name }}">
-                <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
+                @for (item of field.options; track $index) {
+                    <option [value]="item.value">{{ item.label }}</option>
+                }
+              
             </select>
         }
         @else{

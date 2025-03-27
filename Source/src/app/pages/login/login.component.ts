@@ -6,7 +6,6 @@ import { FormValidationErrors } from '../../shared/models/formValidationErrors';
 import { FormComponent } from "../../shared/components/form/form.component";
 import { LoginService } from '../../services/login/login.service';
 import { JwtService } from '../../shared/services/jwt/jwt.service';
-import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,6 @@ import { AuthService } from '../../shared/services/auth/auth.service';
 export class LoginComponent {
   private readonly loginService = inject(LoginService)
   private readonly jwtService = inject(JwtService)
-  private readonly authService = inject(AuthService)
   loginObj:Login = {
     email: '',
     password: ''
@@ -41,7 +39,6 @@ export class LoginComponent {
   ]
   onSuccess = (formGroup: FormGroup)=>{
     this.loginObj = this.loginFormGroup.value as Login;
-    //let token = httpResource(()=>httpResourceRequest)
     this.loginService.login(this.loginObj).subscribe((res)=>{
       this.jwtService.setToken(res)
     })
