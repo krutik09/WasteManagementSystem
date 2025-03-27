@@ -1,0 +1,25 @@
+<h1>{{heading}}</h1>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmitForm(formGroup)">
+    @for (field of formFields; track $index) {
+        @if (field.type == 'checkbox') {
+            <input class="form-check-input" type="{{field.type}}" formControlName = "{{field.name}}" id="{{field.name}}">
+            <label class="form-check-label" for="{{field.name}}">{{field.displayName}}</label>
+        }
+        @else if (field.type == 'select') {
+            <label for="{{ field.name }}" class="form-label">{{field.displayName}}</label>
+            <select class="form-select" formControlName="{{ field.name }}" id="{{ field.name }}">
+                <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
+            </select>
+        }
+        @else{
+        <label for="{{field.name}}" class="form-label">{{field.displayName}}</label>
+        <input class="form-control" type="{{field.type}}" formControlName = "{{field.name}}" placeholder="{{field.placeholder}}" id="{{field.name}}"  >
+        <div>
+            @if (showValidationErrors && formGroup.controls[field.name].invalid) {
+                <small >{{ field.name }} is required.</small>
+            }
+        </div>
+        }
+    }
+    <button class="btn btn-primary">Submit</button>
+</form>
