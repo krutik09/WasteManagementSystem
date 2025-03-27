@@ -7,7 +7,6 @@ import { FormComponent } from "../../shared/components/form/form.component";
 import { LoginService } from '../../services/login/login.service';
 import { JwtService } from '../../shared/services/jwt/jwt.service';
 import { AuthService } from '../../shared/services/auth/auth.service';
-import { httpResource } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
