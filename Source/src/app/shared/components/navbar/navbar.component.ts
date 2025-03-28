@@ -9,4 +9,7 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
   NavbarMenuService = inject(NavbarMenuService)
+  logout(){
+    this.NavbarMenuService.logout()
+  }
 }

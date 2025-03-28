@@ -1,0 +1,7 @@
+@use './variables.scss' as var;
+.navbar{
+    background-color: var.$primary !important;
+}
+.nav-link:hover{
+    cursor: pointer;
+}

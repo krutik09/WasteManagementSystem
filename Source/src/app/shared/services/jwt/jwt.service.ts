@@ -10,8 +10,13 @@ export class JwtService {
   })
   setToken(token:string){
     this.storedToken.set(token)
+    localStorage.setItem('token',token)
   }
   getToken(){
     return this.token
+  }
+  clearToken(){
+    this.storedToken.set(null)
+    localStorage.removeItem('token')
   }
 }

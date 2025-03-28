@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserType } from '../../../enums/UserType';
+import { UserType } from '../../enums/UserType';
 
 @Injectable({
   providedIn: 'root'

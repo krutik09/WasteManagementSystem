@@ -26,5 +26,7 @@ export class AuthService {
   isLoggedIn(){
     return this.isUserLoggedIn
   }
-
+  logout(){
+    this.jwtService.clearToken()
+  }
 }

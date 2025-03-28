@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormField } from '../../models/formFields';
 import { FormValidationErrors } from '../../models/formValidationErrors';
+import { Buttons } from '../../../models/Buttons';
 
 @Component({
   selector: 'app-form',
@@ -15,6 +16,7 @@ export class FormComponent {
   @Input() heading!:string
   @Input() onValidationSuccess!:(formGroup: FormGroup)=>any
   @Input() onValidationFailed!:(formGroup: FormGroup,formValidationErrors:FormValidationErrors[])=>any
+  @Input() actionBtns?:Buttons[]
   showValidationErrors: boolean = false
   getFormValidationErrors(): FormValidationErrors[] {
     const errors: { field: string; errors: any }[] = [];

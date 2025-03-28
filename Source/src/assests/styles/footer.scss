@@ -1,0 +1,9 @@
+@use 'flex.scss';
+@use './variables.scss' as var;
+.footer-container{
+    background-color: grey;
+    padding-inline: 1%;
+    @extend .flex-row-space-between;
+    background-color: var.$primary !important;
+
+}

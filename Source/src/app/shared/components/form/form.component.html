@@ -1,4 +1,4 @@
-<h1>{{heading}}</h1>
+<h1 class="form-heading">{{heading}}</h1>
 <form [formGroup]="formGroup" (ngSubmit)="onSubmitForm(formGroup)">
     @for (field of formFields; track $index) {
         @if (field.type == 'checkbox') {
@@ -24,5 +24,19 @@
         </div>
         }
     }
-    <button class="btn btn-primary">Submit</button>
+    <div class="form-action-buttons">
+        @if (actionBtns!=null) {
+            @for (btn of actionBtns; track $index) {
+                @if (btn.visibility!=null) {
+                    @if (btn.visibility()) {
+                    <button [className]="btn.className" [type]="btn.type" [disabled]="btn.disabled" (click)="btn.onClick()">{{btn.name}}</button>
+                    }
+                }
+                @else {
+                    <button [className]="btn.className" [type]="btn.type" [disabled]="btn.disabled" (click)="btn.onClick()">{{btn.name}}</button>
+                }
+            }
+        }
+        <button class="btn btn-primary">Submit</button>
+    </div>
 </form>

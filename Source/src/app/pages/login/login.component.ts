@@ -6,6 +6,7 @@ import { FormValidationErrors } from '../../shared/models/formValidationErrors';
 import { FormComponent } from "../../shared/components/form/form.component";
 import { LoginService } from '../../services/login/login.service';
 import { JwtService } from '../../shared/services/jwt/jwt.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { JwtService } from '../../shared/services/jwt/jwt.service';
 })
 export class LoginComponent {
   private readonly loginService = inject(LoginService)
+  private readonly routerService = inject(Router)
   private readonly jwtService = inject(JwtService)
   loginObj:Login = {
     email: '',
@@ -41,6 +43,7 @@ export class LoginComponent {
     this.loginObj = this.loginFormGroup.value as Login;
     this.loginService.login(this.loginObj).subscribe((res)=>{
       this.jwtService.setToken(res)
+      this.routerService.navigate(['/profile'])
     })
   }
   onFailed = (formGroup: FormGroup, errors: FormValidationErrors[]) => {

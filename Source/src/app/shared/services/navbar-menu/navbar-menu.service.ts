@@ -2,13 +2,15 @@ import { computed, inject, Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { NavbarMenuList } from '../../data/navbar-menu-list';
 import { UserType } from '../../../enums/UserType';
-import { UserRoleService } from '../user-role/user-role.service';
+import { UserRoleService } from '../../../services/user-role/user-role.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavbarMenuService {
   private readonly authService = inject(AuthService)
+  private readonly router = inject(Router)
   private readonly userRoleService = inject(UserRoleService)
   private readonly navbarMenuList = NavbarMenuList
   private readonly menus = computed(()=>{
@@ -26,6 +28,10 @@ export class NavbarMenuService {
   }
   public getLoggedInUser(){
     return this.authService.getUserPayload()
+  }
+  public logout(){
+    this.authService.logout()
+    this.router.navigate(['/login'])
   }
   private getDefaultNavbarMenus(){
     return this.navbarMenuList.filter((element)=>element.accessibility==null);

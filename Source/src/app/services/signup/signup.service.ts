@@ -7,7 +7,7 @@ import { Signup } from '../../models/Signup';
 })
 export class SignupService {
   private readonly httpClient =  inject(HttpClient)
-  private readonly baseUri = "http://localhost:5297/api/"
+  private readonly baseUri = "https://localhost:7154/api/"
   SignUp(signupObj:Signup){
     return this.httpClient.post<any>(this.baseUri+"User",signupObj);
   }

@@ -7,7 +7,7 @@ import { Login } from '../../models/Login';
 })
 export class LoginService {
   private readonly httpClient =  inject(HttpClient)
-  private readonly baseUri = "http://localhost:5297/api/"
+  private readonly baseUri = "https://localhost:7154/api/"
   login(loginObj:Login){
     return this.httpClient.post(this.baseUri+"Auth/login",loginObj,{responseType:'text'});
   }

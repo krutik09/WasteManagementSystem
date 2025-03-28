@@ -1,0 +1,12 @@
+$body-bg:#EFF0F1;
+$content-sides-padding:10%;
+$footer-sides-padding:3%;
+$navbar-footer-bg-color:white;
+$primary:yellowgreen;
+$modal-padding-x:4%;
+$danger:#BB0522;
+@use "../../../node_modules/bootstrap/scss/bootstrap" with(
+    $primary: yellowgreen,
+    $danger:#BB0522,
+    $navbar-padding-x:  $content-sides-padding,
+);
